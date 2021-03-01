@@ -1,19 +1,15 @@
 package br.eti.arthurgregorio.copos;
 
-import br.eti.arthurgregorio.liquidos.Agua;
-import br.eti.arthurgregorio.liquidos.Liquido;
+import br.eti.arthurgregorio.liquidos.Vinho;
 
-public class Taca extends Copo {
+public class Taca<T extends Vinho> extends Copo<T> {
 
-    public Taca(Liquido conteudo) {
+    public Taca(T conteudo) {
         super(conteudo);
     }
 
     @Override
     public String getOQueEstouBebendo() {
-        if (this.conteudo instanceof Agua) {
-            throw new IllegalStateException("Não pode beber agua na taca");
-        }
         return super.getOQueEstouBebendo();
     }
 }

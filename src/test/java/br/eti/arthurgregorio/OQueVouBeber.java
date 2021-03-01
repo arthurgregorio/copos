@@ -3,42 +3,39 @@ package br.eti.arthurgregorio;
 import br.eti.arthurgregorio.copos.Copo;
 import br.eti.arthurgregorio.copos.Taca;
 import br.eti.arthurgregorio.liquidos.Agua;
+import br.eti.arthurgregorio.liquidos.Cerveja;
+import br.eti.arthurgregorio.liquidos.Liquido;
 import br.eti.arthurgregorio.liquidos.Vinho;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 public class OQueVouBeber {
 
     @Test
     void bebereiAguaNoCopo() {
-        final var copo = new Copo(new Agua());
+        final Copo<Agua> copo = new Copo<>(new Agua());
         assertThat(copo.getOQueEstouBebendo()).isEqualTo("Agua");
     }
 
     @Test
     void bebereiVinhoNaTaca() {
-        final var taca = new Taca(new Vinho());
+        final Taca<Vinho> taca = new Taca<>(new Vinho());
         assertThat(taca.getOQueEstouBebendo()).isEqualTo("Vinho");
     }
 
     @Test
-    void possoBeberQualquerCoisaNoCopo() {
-        final var copoDeAgua = new Copo(new Agua());
-        assertThat(copoDeAgua.getOQueEstouBebendo()).isEqualTo("Agua");
-
-        final var copoDeVinho = new Copo(new Vinho());
-        assertThat(copoDeVinho.getOQueEstouBebendo()).isEqualTo("Vinho");
+    void bebereiCervejaNoCopo() {
+        final Copo<Cerveja> copo = new Copo<>(new Cerveja());
+        assertThat(copo.getOQueEstouBebendo()).isEqualTo("Cerveja");
     }
 
     @Test
-    void tacaSomenteServeParaVinho() {
-        final var taca = new Taca(new Agua());
-        assertThatExceptionOfType(IllegalStateException.class)
-                .isThrownBy(() -> {
-                    final var bebida = taca.getOQueEstouBebendo();
-                    System.out.println("Estou bebendo " + bebida);
-                });
+    void possoBeberQualquerCoisaNoCopo() {
+        final Copo<? extends Liquido> copoDeAgua = new Copo<>(new Agua());
+        assertThat(copoDeAgua.getOQueEstouBebendo()).isEqualTo("Agua");
+
+        final Copo<? extends Liquido> copoDeVinho = new Copo<>(new Vinho());
+        assertThat(copoDeVinho.getOQueEstouBebendo()).isEqualTo("Vinho");
     }
 }

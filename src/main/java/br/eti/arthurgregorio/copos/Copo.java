@@ -2,11 +2,11 @@ package br.eti.arthurgregorio.copos;
 
 import br.eti.arthurgregorio.liquidos.Liquido;
 
-public class Copo {
+public class Copo<T extends Liquido> {
 
-    protected final Liquido conteudo;
+    protected final T conteudo;
 
-    public Copo(Liquido conteudo) {
+    public Copo(T conteudo) {
         this.conteudo = conteudo;
     }
 
